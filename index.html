@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SEOYEON QUEST — Player 01</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+
+    --pink: #ff9fc9;
+
+    --yellow: #fff19c;
+
+    --cream: #fffaf0;
+
+    --purple: #7765a8;
+
+    --dark: #43364e;
+
+    --mint: #caf3df;
+
+}
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+body {
+
+    margin: 0;
+
+    background: #ffe6ef;
+
+    background-image:
+
+        radial-gradient(#e7b7cd 1.5px, transparent 1.5px);
+
+    background-size: 22px 22px;
+
+    color: var(--dark);
+
+    font-family: 'Noto Sans KR', sans-serif;
+
+}
+
+button {
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    color: var(--dark);
+
+}
+
+.pixel {
+
+    font-family: 'Press Start 2P', monospace;
+
+}
+
+/* 게임 시작 화면 */
+
+#startScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 25px;
+
+    background:
+
+        radial-gradient(circle at center, #fff6c7, #ffc4dd);
+
+    overflow: hidden;
+
+}
+
+#startScreen h1 {
+
+    font-family: 'Press Start 2P', monospace;
+
+    font-size: clamp(25px, 5vw, 55px);
+
+    line-height: 1.8;
+
+    color: #fffdf4;
+
+    text-shadow:
+
+        4px 4px 0 #b96196,
+
+        7px 7px 0 #75537d;
+
+}
+
+.start-character {
+
+    font-size: 95px;
+
+    animation: bounce 2s infinite;
+
+}
+
+.start-button {
+
+    background: var(--yellow);
+
+    border: 3px solid var(--dark);
+
+    border-radius: 12px;
+
+    padding: 22px 30px;
+
+    margin-top: 25px;
+
+    box-shadow: 5px 6px 0 var(--dark);
+
+    font-family: 'Press Start 2P', monospace;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+
+}
+
+.start-button:hover {
+
+    background: white;
+
+    transform: translateY(-5px);
+
+}
+
+.blink {
+
+    animation: blink 1.5s infinite;
+
+}
+
+@keyframes blink {
+
+    50% { opacity: 0.3; }
+
+}
+
+@keyframes bounce {
+
+    50% { transform: translateY(-12px); }
+
+}
+
+/* 게임 메인 화면 */
+
+.game {
+
+    max-width: 1120px;
+
+    margin: 40px auto;
+
+    padding: 15px;
+
+}
+
+.game-window {
+
+    border: 3px solid var(--dark);
+
+    border-radius: 20px;
+
+    background: var(--cream);
+
+    box-shadow: 8px 8px 0 #b88da7;
+
+    overflow: hidden;
+
+}
+
+.window-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    background: var(--pink);
+
+    border-bottom: 3px solid var(--dark);
+
+    padding: 18px 20px;
+
+}
+
+.window-top .pixel {
+
+    font-size: 10px;
+
+    line-height: 1.8;
+
+}
+
+.window-dots {
+
+    display: flex;
+
+    gap: 7px;
+
+}
+
+.window-dots span {
+
+    width: 14px;
+
+    height: 14px;
+
+    border: 2px solid var(--dark);
+
+    border-radius: 50%;
+
+    background: var(--yellow);
+
+}
+
+.layout {
+
+    display: grid;
+
+    grid-template-columns: 300px 1fr;
+
+    min-height: 620px;
+
+}
+
+/* 캐릭터 상태창 */
+
+.sidebar {
+
+    padding: 25px;
+
+    background: #fff1f7;
+
+    border-right: 3px solid var(--dark);
+
+}
+
+.player-label {
+
+    font-size: 10px;
+
+    color: var(--purple);
+
+    margin-bottom: 20px;
+
+}
+
+.character-box {
+
+    position: relative;
+
+    min-height: 220px;
+
+    border: 3px solid var(--dark);
+
+    border-radius: 15px;
+
+    background-color: var(--yellow);
+
+    background-image:
+
+        linear-gradient(#e5cd7755 1px, transparent 1px),
+
+        linear-gradient(90deg, #e5cd7755 1px, transparent 1px);
+
+    background-size: 18px 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.character {
+
+    font-size: 95px;
+
+    animation: bounce 2.5s infinite;
+
+}
+
+.character-name {
+
+    background: white;
+
+    border: 2px solid var(--dark);
+
+    padding: 7px 14px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+}
+
+.online {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    font-size: 10px;
+
+    background: var(--mint);
+
+    border: 1px solid var(--dark);
+
+    padding: 6px 8px;
+
+    border-radius: 15px;
+
+}
+
+.sidebar h2 {
+
+    font-family: 'Jua', sans-serif;
+
+    font-size: 30px;
+
+    margin-bottom: 5px;
+
+}
+
+.job {
+
+    font-size: 13px;
+
+    color: var(--purple);
+
+    line-height: 1.8;
+
+}
+
+.status {
+
+    margin-top: 25px;
+
+}
+
+.status-label {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin: 12px 0 7px;
+
+}
+
+.bar {
+
+    height: 17px;
+
+    border: 2px solid var(--dark);
+
+    border-radius: 5px;
+
+    overflow: hidden;
+
+    background: white;
+
+}
+
+.bar-fill {
+
+    height: 100%;
+
+    background: var(--pink);
+
+    transition: width 0.6s ease;
+
+}
+
+.exp-fill {
+
+    background: #b6a5ed;
+
+    width: 0%;
+
+}
+
+.player-info {
+
+    background: white;
+
+    border: 2px dashed #ce9db7;
+
+    border-radius: 12px;
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    font-size: 13px;
+
+    line-height: 2;
+
+}
+
+/* 오른쪽 메뉴 */
+
+.main {
+
+    padding: 25px;
+
+    min-width: 0;
+
+}
+
+.game-menu {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+}
+
+.menu-button {
+
+    background: white;
+
+    border: 2px solid var(--dark);
+
+    border-radius: 10px;
+
+    padding: 15px 5px;
+
+    box-shadow: 3px 3px 0 var(--dark);
+
+    font-weight: 700;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+
+}
+
+.menu-button:hover {
+
+    transform: translateY(-3px);
+
+    background: var(--yellow);
+
+}
+
+.menu-button.active {
+
+    background: var(--pink);
+
+    transform: translate(2px, 2px);
+
+    box-shadow: 1px 1px 0 var(--dark);
+
+}
+
+/* 콘텐츠 */
+
+.content {
+
+    margin-top: 28px;
+
+    min-height: 370px;
+
+    padding: 25px;
+
+    border: 2px solid var(--dark);
+
+    border-radius: 15px;
+
+    background: white;
+
+    animation: appear 0.4s ease;
+
+}
+
+.content h2 {
+
+    font-family: 'Jua', sans-serif;
+
+    font-size: 33px;
+
+    margin: 10px 0 20px;
+
+}
+
+.content p {
+
+    font-size: 15px;
+
+    line-height: 2;
+
+}
+
+.section-label {
+
+    color: var(--purple);
+
+    font-size: 10px;
+
+    line-height: 1.8;
+
+}
+
+.dialogue {
+
+    background: #fff2c1;
+
+    border: 2px solid var(--dark);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    line-height: 2;
+
+}
+
+.chips {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+}
+
+.chip {
+
+    background: #f2e7ff;
+
+    border: 1px solid var(--purple);
+
+    border-radius: 30px;
+
+    padding: 8px 14px;
+
+    font-size: 12px;
+
+}
+
+/* 인벤토리 */
+
+.inventory {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+}
+
+.item {
+
+    background: #fff7d7;
+
+    border: 2px solid var(--dark);
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    padding: 20px 8px;
+
+    box-shadow: 3px 3px 0 #d5b988;
+
+    transition: 0.2s;
+
+}
+
+.item:hover {
+
+    background: var(--pink);
+
+    transform: translateY(-5px);
+
+}
+
+.item-icon {
+
+    font-size: 40px;
+
+    display: block;
+
+    margin-bottom: 10px;
+
+}
+
+.item-name {
+
+    font-weight: 700;
+
+    font-size: 13px;
+
+}
+
+.item-description {
+
+    min-height: 75px;
+
+    background: #f4eaff;
+
+    border: 2px dashed var(--purple);
+
+    padding: 15px;
+
+    margin-top: 25px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+/* 능력치 */
+
+.skill {
+
+    margin-bottom: 25px;
+
+}
+
+.skill .bar {
+
+    height: 23px;
+
+}
+
+.skill:nth-child(2) .bar-fill {
+
+    background: var(--yellow);
+
+}
+
+.skill:nth-child(3) .bar-fill {
+
+    background: var(--mint);
+
+}
+
+/* 메인 퀘스트 */
+
+.quest {
+
+    border: 2px solid var(--dark);
+
+    border-radius: 15px;
+
+    background: #fff6ce;
+
+    padding: 20px;
+
+}
+
+.quest-badge {
+
+    display: inline-block;
+
+    background: var(--pink);
+
+    border: 1px solid var(--dark);
+
+    border-radius: 5px;
+
+    padding: 7px 12px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+.quest h3 {
+
+    font-size: 22px;
+
+}
+
+.quest-step {
+
+    background: white;
+
+    border: 1px solid var(--dark);
+
+    padding: 13px;
+
+    margin-top: 10px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+}
+
+/* 하단 게임 메시지 */
+
+.bottom-bar {
+
+    margin-top: 20px;
+
+    border: 2px solid var(--dark);
+
+    background: #e9f9ee;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+}
+
+footer {
+
+    padding: 20px;
+
+    background: var(--yellow);
+
+    border-top: 3px solid var(--dark);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+}
+
+.like-button {
+
+    background: var(--pink);
+
+    border: 2px solid var(--dark);
+
+    border-radius: 10px;
+
+    padding: 10px 18px;
+
+    box-shadow: 3px 3px 0 var(--dark);
+
+}
+
+.toast {
+
+    position: fixed;
+
+    top: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 200;
+
+    background: var(--yellow);
+
+    border: 3px solid var(--dark);
+
+    border-radius: 15px;
+
+    padding: 18px 25px;
+
+    box-shadow: 4px 4px 0 var(--dark);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    width: max-content;
+
+    max-width: 90%;
+
+    animation: appear 0.3s ease;
+
+}
+
+@keyframes appear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+@media (max-width: 760px) {
+
+    .layout {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .sidebar {
+
+        border-right: none;
+
+        border-bottom: 3px solid var(--dark);
+
+    }
+
+    .game {
+
+        margin-top: 15px;
+
+    }
+
+    .main {
+
+        padding: 16px;
+
+    }
+
+    .content {
+
+        padding: 18px;
+
+    }
+
+    .inventory {
+
+        gap: 8px;
+
+    }
+
+    .item-icon {
+
+        font-size: 30px;
+
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- 게임 시작 화면 -->
+
+<div id="startScreen">
+
+    <div class="pixel" style="font-size:11px;">
+
+        ✦ MY PERSONAL ADVENTURE ✦
+
+    </div>
+
+    <h1>SEOYEON<br>QUEST</h1>
+
+    <div class="start-character">👩🏻 ⚕️</div>
+
+    <p style="font-family:Jua; font-size:23px;">
+
+        미래의 간호사를 향한 성장 이야기
+
+    </p>
+
+    <button class="start-button" onclick="startGame()">
+
+        ▶ PRESS START
+
+    </button>
+
+    <p class="blink" style="font-size:12px; margin-top:30px;">
+
+        CLICK TO ENTER MY WORLD
+
+    </p>
+
+</div>
+
+<!-- 메인 게임 화면 -->
+
+<div class="game">
+
+<div class="game-window">
+
+    <header class="window-top">
+
+        <span class="pixel">
+
+            SEOYEON_QUEST.EXE
+
+        </span>
+
+        <div class="window-dots">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </div>
+
+    </header>
+
+    <div class="layout">
+
+        <!-- 캐릭터 정보 -->
+
+        <aside class="sidebar">
+
+            <div class="pixel player-label">
+
+                PLAYER 01
+
+            </div>
+
+            <div class="character-box">
+
+                <span class="online">● ONLINE</span>
+
+                <div class="character">👩🏻 ⚕️</div>
+
+                <div class="character-name">
+
+                    SEOYEON ♡
+
+                </div>
+
+            </div>
+
+            <h2>박서연</h2>
+
+            <div class="job">
+
+                CLASS. Future Nurse<br>
+
+                단국대학교 간호학과 2학년
+
+            </div>
+
+            <div class="status">
+
+                <div class="status-label">
+
+                    <span>♥ HP</span>
+
+                    <span>100 / 100</span>
+
+                </div>
+
+                <div class="bar">
+
+                    <div class="bar-fill" style="width:100%"></div>
+
+                </div>
+
+                <div class="status-label">
+
+                    <span id="levelText">LV. 02 · EXP</span>
+
+                    <span id="expText">0 / 100</span>
+
+                </div>
+
+                <div class="bar">
+
+                    <div class="bar-fill exp-fill" id="expBar"></div>
+
+                </div>
+
+            </div>
+
+            <div class="player-info">
+
+                <b>✦ PLAYER INFORMATION</b><br>
+
+                🎓 Major : Nursing<br>
+
+                💗 Type : 성장형 캐릭터<br>
+
+                🌷 Skill : 공감과 소통<br>
+
+                🏆 Goal : 신뢰받는 간호사
+
+            </div>
+
+        </aside>
+
+        <!-- 메인 메뉴 -->
+
+        <main class="main">
+
+            <div class="game-menu">
+
+                <button class="menu-button active"
+
+                    onclick="showPage('profile', this)">
+
+                    👤 PROFILE
+
+                </button>
+
+                <button class="menu-button"
+
+                    onclick="showPage('about', this)">
+
+                    💬 ABOUT ME
+
+                </button>
+
+                <button class="menu-button"
+
+                    onclick="showPage('interests', this)">
+
+                    🎀 INTERESTS
+
+                </button>
+
+                <button class="menu-button"
+
+                    onclick="showPage('strengths', this)">
+
+                    ⚡ STATS
+
+                </button>
+
+                <button class="menu-button"
+
+                    onclick="showPage('hobbies', this)">
+
+                    🎒 INVENTORY
+
+                </button>
+
+                <button class="menu-button"
+
+                    onclick="showPage('goal', this)">
+
+                    🏆 QUEST
+
+                </button>
+
+            </div>
+
+            <section class="content" id="content">
+
+                <div class="pixel section-label">
+
+                    CHAPTER 01 / PROFILE
+
+                </div>
+
+                <h2>안녕하세요, 플레이어!</h2>
+
+                <div class="dialogue">
+
+                    안녕하세요! 저는 단국대학교 간호학과
+
+                    2학년에 재학 중인 박서연입니다.
+
+                    새로운 것을 배우고 사람들과 소통하는 것을
+
+                    좋아합니다.
+
+                </div>
+
+                <div class="chips">
+
+                    <span class="chip">#Nursing</span>
+
+                    <span class="chip">#Communication</span>
+
+                    <span class="chip">#Growth</span>
+
+                    <span class="chip">#Challenge</span>
+
+                </div>
+
+                <p>
+
+                    메뉴를 클릭하면서 저의 이야기를 탐험해 보세요.
+
+                    모든 챕터를 탐험하면 특별한 업적이 해제됩니다!
+
+                </p>
+
+            </section>
+
+            <div class="bottom-bar" id="gameMessage">
+
+                💬 SYSTEM : 새로운 플레이어를 환영합니다!
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer>
+
+        <span class="pixel" style="font-size:9px;">
+
+            SAVE POINT ♡ PLAYER 01
+
+        </span>
+
+        <button class="like-button" onclick="likePlayer()">
+
+            ♥ 응원하기 <span id="likes">0</span>
+
+        </button>
+
+    </footer>
+
+</div>
+
+<p style="text-align:center; font-size:12px; margin-top:30px;">
+
+    © SEOYEON QUEST · MY LIFE, MY ADVENTURE
+
+</p>
+
+</div>
+
+<script>
+
+const visited = new Set();
+
+let exp = 0;
+
+let likes = 0;
+
+let achievement = false;
+
+let typingTimer;
+
+const pages = {
+
+    profile: `
+
+        <div class="pixel section-label">
+
+            CHAPTER 01 / PROFILE
+
+        </div>
+
+        <h2>나의 캐릭터 프로필</h2>
+
+        <div class="dialogue">
+
+            이름 : 박서연<br>
+
+            학교 : 단국대학교<br>
+
+            전공 : 간호학과<br>
+
+            학년 : 2학년<br>
+
+            클래스 : 미래의 간호사
+
+        </div>
+
+        <div class="chips">
+
+            <span class="chip">#Nursing</span>
+
+            <span class="chip">#Growth</span>
+
+            <span class="chip">#Challenge</span>
+
+        </div>
+
+    `,
+
+    about: `
+
+        <div class="pixel section-label">
+
+            CHAPTER 02 / STORY
+
+        </div>
+
+        <h2>나의 이야기 💬</h2>
+
+        <div class="dialogue">
+
+            <span id="typingText"></span>
+
+            <span class="blink">▌</span>
+
+        </div>
+
+        <div class="chips">
+
+            <span class="chip">새로운 경험</span>
+
+            <span class="chip">배움과 성장</span>
+
+            <span class="chip">사람들과의 소통</span>
+
+        </div>
+
+    `,
+
+    interests: `
+
+        <div class="pixel section-label">
+
+            CHAPTER 03 / FAVORITES
+
+        </div>
+
+        <h2>행복 아이템 모음 🎀</h2>
+
+        <div class="inventory">
+
+            <button class="item"
+
+                onclick="describe('🎧 좋아하는 노래를 들으면 일상의 기분이 좋아집니다.')">
+
+                <span class="item-icon">🎧</span>
+
+                <span class="item-name">MUSIC</span>
+
+            </button>
+
+            <button class="item"
+
+                onclick="describe('🌳 여유롭게 산책하며 일상 속 소소한 행복을 느낍니다.')">
+
+                <span class="item-icon">🌳</span>
+
+                <span class="item-name">WALK</span>
+
+            </button>
+
+            <button class="item"
+
+                onclick="describe('🍰 맛있는 케이크는 저의 행복 충전 아이템입니다.')">
+
+                <span class="item-icon">🍰</span>
+
+                <span class="item-name">CAKE</span>
+
+            </button>
+
+        </div>
+
+        <div class="item-description" id="description">
+
+            🔍 아이템을 클릭하면 설명이 나타납니다.
+
+        </div>
+
+    `,
+
+    strengths: `
+
+        <div class="pixel section-label">
+
+            CHAPTER 04 / CHARACTER STATS
+
+        </div>
+
+        <h2>캐릭터 능력치 ⚡</h2>
+
+        <div class="skill">
+
+            <div class="status-label">
+
+                <span>⭐ 책임감</span>
+
+                <span>95 / 100</span>
+
+            </div>
+
+            <div class="bar">
+
+                <div class="bar-fill" style="width:95%"></div>
+
+            </div>
+
+        </div>
+
+        <div class="skill">
+
+            <div class="status-label">
+
+                <span>💗 공감 능력</span>
+
+                <span>98 / 100</span>
+
+            </div>
+
+            <div class="bar">
+
+                <div class="bar-fill" style="width:98%"></div>
+
+            </div>
+
+        </div>
+
+        <div class="skill">
+
+            <div class="status-label">
+
+                <span>🤝 협업 능력</span>
+
+                <span>93 / 100</span>
+
+            </div>
+
+            <div class="bar">
+
+                <div class="bar-fill" style="width:93%"></div>
+
+            </div>
+
+        </div>
+
+        <div class="dialogue">
+
+            ✨ SPECIAL SKILL<br>
+
+            상대방의 마음을 이해하고 함께 성장하기
+
+        </div>
+
+        <p style="font-size:11px;">
+
+            * 능력치는 자기소개를 게임으로 표현한 연출입니다.
+
+        </p>
+
+    `,
+
+    hobbies: `
+
+        <div class="pixel section-label">
+
+            CHAPTER 05 / INVENTORY
+
+        </div>
+
+        <h2>나의 취미 인벤토리 🎒</h2>
+
+        <div class="inventory">
+
+            <button class="item"
+
+                onclick="describe('🎵 음악 감상 아이템 — 일상 속 기분 전환!')">
+
+                <span class="item-icon">🎵</span>
+
+                <span class="item-name">음악 감상</span>
+
+            </button>
+
+            <button class="item"
+
+                onclick="describe('✈️ 여행 아이템 — 새로운 장소와 경험을 탐험합니다.')">
+
+                <span class="item-icon">✈️</span>
+
+                <span class="item-name">여행</span>
+
+            </button>
+
+            <button class="item"
+
+                onclick="describe('🏃 운동 아이템 — 건강과 에너지를 충전합니다.')">
+
+                <span class="item-icon">🏃 ♀️</span>
+
+                <span class="item-name">운동</span>
+
+            </button>
+
+        </div>
+
+        <div class="item-description" id="description">
+
+            🎁 아이템을 선택하여 정보를 확인하세요!
+
+        </div>
+
+    `,
+
+    goal: `
+
+        <div class="pixel section-label">
+
+            FINAL CHAPTER / MAIN QUEST
+
+        </div>
+
+        <h2>나의 메인 퀘스트 🏆</h2>
+
+        <div class="quest">
+
+            <span class="quest-badge">
+
+                ● QUEST IN PROGRESS
+
+            </span>
+
+            <h3>신뢰받는 간호사 되기</h3>
+
+            <p>
+
+                디지털 기술을 잘 활용하면서도 환자의 마음을
+
+                이해하고 신뢰받을 수 있는 간호사가 되고 싶습니다.
+
+            </p>
+
+            <div class="quest-step">
+
+                📚 Mission 01. 간호 전문 지식 쌓기
+
+            </div>
+
+            <div class="quest-step">
+
+                💻 Mission 02. 디지털 기술 활용 능력 키우기
+
+            </div>
+
+            <div class="quest-step">
+
+                💗 Mission 03. 환자의 마음 이해하기
+
+            </div>
+
+            <div class="quest-step">
+
+                🔒 FINAL REWARD. 신뢰받는 간호사
+
+            </div>
+
+        </div>
+
+    `
+
+};
+
+function startGame() {
+
+    document.getElementById('startScreen').style.display = 'none';
+
+    showPage(
+
+        'profile',
+
+        document.querySelector('.menu-button')
+
+    );
+
+    toast('🎮 GAME START! 모험을 시작합니다.');
+
+}
+
+function showPage(page, button) {
+
+    clearInterval(typingTimer);
+
+    const content = document.getElementById('content');
+
+    content.innerHTML = pages[page];
+
+    document.querySelectorAll('.menu-button').forEach(btn => {
+
+        btn.classList.remove('active');
+
+    });
+
+    button.classList.add('active');
+
+    if (!visited.has(page)) {
+
+        visited.add(page);
+
+        exp = Math.round(visited.size / 6 * 100);
+
+        document.getElementById('expBar').style.width =
+
+            exp + '%';
+
+        document.getElementById('expText').textContent =
+
+            exp + ' / 100';
+
+        document.getElementById('gameMessage').textContent =
+
+            '✨ SYSTEM : 새로운 챕터 발견! 탐험 진행률 ' +
+
+            visited.size + ' / 6';
+
+        if (visited.size === 6 && !achievement) {
+
+            achievement = true;
+
+            document.getElementById('levelText').textContent =
+
+                'LV. 03 · CLEAR';
+
+            document.getElementById('gameMessage').textContent =
+
+                '🏆 ACHIEVEMENT UNLOCKED! 모든 챕터 탐험 완료!';
+
+            toast('🏆 LEVEL UP! 특별 업적 달성!');
+
+        }
+
+    }
+
+    if (page === 'about') {
+
+        const text =
+
+            '안녕하세요! 새로운 것을 배우는 것을 좋아하고 사람들과 소통하는 것을 즐기는 박서연입니다. 다양한 경험을 통해 성장하고, 앞으로 환자에게 따뜻한 신뢰를 전할 수 있는 간호사가 되고 싶습니다.';
+
+        let index = 0;
+
+        typingTimer = setInterval(() => {
+
+            const target = document.getElementById('typingText');
+
+            if (!target || index >= text.length) {
+
+                clearInterval(typingTimer);
+
+                return;
+
+            }
+
+            target.textContent += text.charAt(index);
+
+            index++;
+
+        }, 35);
+
+    }
+
+}
+
+function describe(text) {
+
+    document.getElementById('description').textContent = text;
+
+    document.getElementById('gameMessage').textContent =
+
+        '🎁 SYSTEM : 아이템 정보 확인 완료!';
+
+}
+
+function toast(message) {
+
+    const oldToast = document.querySelector('.toast');
+
+    if (oldToast) oldToast.remove();
+
+    const box = document.createElement('div');
+
+    box.className = 'toast';
+
+    box.textContent = message;
+
+    document.body.appendChild(box);
+
+    setTimeout(() => box.remove(), 2800);
+
+}
+
+function likePlayer() {
+
+    likes++;
+
+    document.getElementById('likes').textContent = likes;
+
+    toast('💗 응원 에너지를 획득했습니다!');
+
+}
+
+</script>
+
+</body>
+
+</html>
